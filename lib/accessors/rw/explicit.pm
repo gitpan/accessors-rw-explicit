@@ -10,7 +10,7 @@ use constant ExportLevel => 1;
 
 =head1 NAME
 
-accessors::rw::explicit - The great new accessors::rw::explicit!
+accessors::rw::explicit - RW object attribute accessors, with explicit semantics
 
 =head1 VERSION
 
@@ -18,7 +18,7 @@ Version 0.01
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 =head1 SYNOPSIS
 
@@ -29,9 +29,9 @@ our $VERSION = '0.01';
     my $obj = bless {}, 'Foo';
 
     # always return the current value, even on set:
-    $obj->set_foo( 'hello ' ) if $obj->get_bar( 'world' ) eq 'world';
+    $obj->set_foo( 'hello ' ) if $obj->bar( 'world' ) eq 'world';
 
-    print $obj->get_foo, $obj->get_bar, $obj->get_baz( "!\n" );
+    print $obj->foo, $obj->bar, $obj->set_baz( "!\n" );
     ...
 
 =head1 DESCRIPTION
@@ -79,7 +79,7 @@ and
 
 =head2 GetPrefix
 
-returns the prefix prepended to getters. Defaults to "".
+returns the prefix prepended to getters. Defaults to the empty string.
 
 =cut
 
@@ -128,12 +128,15 @@ sub import {
 
 =head2 create_accessors_for
 
-Creates a get accessor: GetPrefix + AttributeName
-and a set accessor: SetPrefix + AttributeName
+Creates a get accessor of the form
+  GetPrefix + AttributeName
+and a set accessor of the form 
+  SetPrefix + AttributeName
+
+See import for how to define the prefixes and the attribute names.
 
 This overrides a method in the accessors.pm package, 
 and should never need to be called directly.
-
 
 =cut
 sub create_accessors_for {
@@ -168,7 +171,9 @@ and a setter is defined as:
     return $_[0]->{$property};
   }
 
-Where <code>$property</code> is defined to be <code>"-" . $attribute_name</code>. 
+Where $property is defined to be 
+
+  "-" . $attribute_name</code>. 
 
 =cut
 

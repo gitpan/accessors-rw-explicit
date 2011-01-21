@@ -1,5 +1,5 @@
 ---
-abstract: 'The great new accessors::rw::explicit!'
+abstract: 'RW object attribute accessors, with explicit semantics'
 author:
   - 'Alex Kalderimis <alex dot kalderimis at gmail dot com>'
 build_requires:
@@ -16,7 +16,7 @@ name: accessors-rw-explicit
 provides:
   accessors::rw::explicit:
     file: lib/accessors/rw/explicit.pm
-    version: 0.01
+    version: 0.02
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.01
+version: 0.02
